@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Remote Support Desk | Ticket Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">RS</span><div><strong>Remote Support</strong><small>Service Desk</small></div></div>
+    <nav>
+      <button class="nav-item active" data-view="dashboard">▦ <span>Dashboard</span></button>
+      <button class="nav-item" data-view="tickets">▤ <span>Support tickets</span></button>
+      <button class="nav-item" data-view="guides">☷ <span>Troubleshooting guides</span></button>
+    </nav>
+    <div class="sidebar-note"><span class="status-dot"></span> Demo environment <small>Sample data stays in this browser.</small></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div><p class="eyebrow">TECHNICAL SUPPORT WORKSPACE</p><h1 id="page-title">Dashboard</h1></div>
+      <button class="primary" id="new-ticket-btn">＋ New ticket</button>
+    </header>
+
+    <section id="dashboard-view" class="view">
+      <div class="welcome"><div><p class="eyebrow light">SUPPORT OPERATIONS</p><h2>Resolve issues. Keep customers informed.</h2><p>Log incidents, track priorities and use consistent troubleshooting steps.</p></div><div class="welcome-icon">⌁</div></div>
+      <div class="stats">
+        <article class="stat-card"><span>Open tickets</span><strong id="stat-open">0</strong><small>Awaiting resolution</small></article>
+        <article class="stat-card"><span>High priority</span><strong id="stat-high">0</strong><small>Review and act promptly</small></article>
+        <article class="stat-card"><span>Callbacks due</span><strong id="stat-callbacks">0</strong><small>Scheduled follow-ups</small></article>
+        <article class="stat-card"><span>Resolved</span><strong id="stat-resolved">0</strong><small>Tickets marked resolved</small></article>
+      </div>
+      <div class="section-heading"><div><h2>Recent tickets</h2><p>Latest customer issues logged in the system</p></div><button class="text-button" data-goto="tickets">View all →</button></div>
+      <div class="table-wrap"><table><thead><tr><th>Ticket</th><th>Customer / issue</th><th>Category</th><th>Priority</th><th>Status</th><th>Callback</th></tr></thead><tbody id="recent-tickets"></tbody></table></div>
+      <p class="empty-state hidden" id="recent-empty">No tickets yet. Select “New ticket” to log your first support request.</p>
+    </section>
+
+    <section id="tickets-view" class="view hidden">
+      <div class="toolbar"><div><h2>Support tickets</h2><p>Record symptoms, actions, outcomes and follow-ups.</p></div><div class="filters"><input id="ticket-search" placeholder="Search tickets…" aria-label="Search tickets"><select id="status-filter" aria-label="Filter by status"><option value="all">All statuses</option><option>Open</option><option>In progress</option><option>Escalated</option><option>Resolved</option></select></div></div>
+      <div class="table-wrap"><table><thead><tr><th>Ticket</th><th>Customer / issue</th><th>Category</th><th>Priority</th><th>Status</th><th>Callback</th><th>Actions</th></tr></thead><tbody id="tickets-table"></tbody></table></div>
+      <p class="empty-state hidden" id="tickets-empty">No matching tickets found.</p>
+    </section>
+
+    <section id="guides-view" class="view hidden">
+      <div class="toolbar"><div><h2>Troubleshooting guides</h2><p>Structured first-line checks before escalation.</p></div><input id="guide-search" placeholder="Search guides…" aria-label="Search guides"></div>
+      <div id="guides-list" class="guide-grid"></div>
+    </section>
+
+    <footer>Portfolio demonstration · Fictional sample data · No real customer information</footer>
+  </main>
+
+  <dialog id="ticket-dialog">
+    <form id="ticket-form" method="dialog">
+      <div class="dialog-head"><div><p class="eyebrow">CUSTOMER SUPPORT</p><h2>Log a support ticket</h2></div><button type="button" class="icon-button" id="close-dialog" aria-label="Close">×</button></div>
+      <div class="form-grid">
+        <label>Customer name<input name="customer" required maxlength="80" placeholder="e.g. Alex Morgan"></label>
+        <label>Contact details<input name="contact" maxlength="100" placeholder="Phone or email (optional)"></label>
+        <label class="full">Issue summary<input name="issue" required maxlength="140" placeholder="e.g. IP camera appears offline"></label>
+        <label>Category<select name="category"><option>CCTV / IP Camera</option><option>Internet / Network</option><option>VoIP / Phone</option><option>Hardware / Power</option><option>Software / Configuration</option><option>Other</option></select></label>
+        <label>Priority<select name="priority"><option>Low</option><option selected>Medium</option><option>High</option><option>Critical</option></select></label>
+        <label>Status<select name="status"><option selected>Open</option><option>In progress</option><option>Escalated</option><option>Resolved</option></select></label>
+        <label>Callback date/time<input name="callback" type="datetime-local"></label>
+        <label class="full">Symptoms / customer statement<textarea name="symptoms" rows="3" placeholder="What is happening? When did it start? Any error messages?"></textarea></label>
+        <label class="full">Troubleshooting performed<textarea name="actions" rows="3" placeholder="Checks completed and their results"></textarea></label>
+        <label class="full">Resolution / escalation notes<textarea name="resolution" rows="2" placeholder="Outcome, next step, or team to escalate to"></textarea></label>
+      </div>
+      <div class="dialog-actions"><button type="button" class="secondary" id="cancel-dialog">Cancel</button><button class="primary" type="submit">Save ticket</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
